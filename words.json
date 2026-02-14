@@ -1,0 +1,56 @@
+[
+  {
+    "word": "Palimpsest",
+    "pronunciation": "PAL-imp-sest",
+    "definition": "A manuscript or surface where earlier writing has been scraped away and written over — but traces of the original remain beneath.",
+    "origin": "From Greek palimpsēstos (\"scraped again\"). Originally literal — medieval monks reused expensive parchment. Now used metaphorically across humanities to describe anything layered with partially erased histories: cities, texts, identities, landscapes.",
+    "example": "\"The city itself is a palimpsest — beneath the gleaming development, traces of displacement and Indigenous presence remain legible to those who know how to read them.\"",
+    "date": "2026-02-08",
+    "day": 1
+  },
+  {
+    "word": "Aporia",
+    "pronunciation": "uh-POR-ee-uh",
+    "definition": "A state of puzzlement or an irresolvable internal contradiction in a text, argument, or concept.",
+    "origin": "From Greek ἀπορία — literally \"without passage.\" Socrates was famous for leading interlocutors into aporia. In deconstruction, Derrida uses it to describe points where a text undermines its own logic. It's that productive dead-end — not a failure of thinking, but where the interesting thinking starts.",
+    "example": "\"The essay traces an aporia at the heart of liberal universalism: its claim to include everyone depends on excluding those who reject its terms.\"",
+    "date": "2026-02-09",
+    "day": 2
+  },
+  {
+    "word": "Lacuna",
+    "pronunciation": "luh-KOO-nuh",
+    "definition": "A gap, blank, or missing portion — especially in a manuscript, text, body of evidence, or theoretical framework. Plural: lacunae.",
+    "origin": "From Latin for \"pool\" or \"pit.\" Used everywhere in the humanities — history, literary criticism, archival studies, philosophy. When a scholar says \"there's a lacuna in the literature,\" they mean nobody has addressed that gap yet.",
+    "example": "\"The colonial archive presents a significant lacuna: the voices of the colonized are largely absent, preserved only in the margins of administrative records.\"",
+    "date": "2026-02-10",
+    "day": 3
+  },
+  {
+    "word": "Liminality",
+    "pronunciation": "lim-ih-NAL-ih-tee",
+    "definition": "The quality of being on a threshold — the ambiguous, in-between state during a transition from one status or stage to another.",
+    "origin": "From anthropologist Victor Turner (building on van Gennep's rites of passage). Latin limen = \"threshold.\" Originally described the middle phase of rituals. Now used across humanities: literary characters in liminal spaces, societies in liminal political moments, identities in flux.",
+    "example": "\"The protagonist's summer abroad functions as a liminal period — suspended between the certainties of childhood and the obligations of adulthood, she inhabits a space where identity becomes negotiable.\"",
+    "date": "2026-02-11",
+    "day": 4
+  },
+  {
+    "word": "Chiasmus",
+    "pronunciation": "ky-AZ-mus",
+    "definition": "A rhetorical figure in which two clauses mirror each other with inverted syntax: AB → BA.",
+    "origin": "From Greek khiasmos (crossing), named for the letter chi (X). The most famous example: \"Ask not what your country can do for you — ask what you can do for your country.\" Once you learn to spot it, it's everywhere — from Biblical verse to academic arguments.",
+    "example": "\"The essay's chiastic structure — moving from individual trauma to collective memory, then from collective silence back to individual voice — gave the argument an elegant symmetry.\"",
+    "date": "2026-02-12",
+    "day": 5
+  },
+  {
+    "word": "Interpellation",
+    "pronunciation": "in-ter-pell-AY-shun",
+    "definition": "The process by which ideology \"hails\" or addresses individuals, turning them into subjects who recognize themselves within its framework.",
+    "origin": "Coined by Marxist philosopher Louis Althusser (1970). The classic example: a police officer shouts \"Hey, you!\" — by turning around, you accept you are being addressed. You've been interpellated. Now used across cultural studies, gender theory, and critical race theory.",
+    "example": "\"Butler extends Althusser's theory of interpellation to argue that gender itself is performatively constituted through repeated acts of recognition and misrecognition.\"",
+    "date": "2026-02-13",
+    "day": 6
+  }
+]
