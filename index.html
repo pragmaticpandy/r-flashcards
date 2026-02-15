@@ -17,7 +17,7 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    overflow: hidden;
+    overflow-x: hidden;
     -webkit-user-select: none;
     user-select: none;
   }
@@ -35,6 +35,42 @@
     font-size: 0.85em;
     color: #666;
     margin-bottom: 20px;
+  }
+
+  /* Tab navigation */
+  .tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .tab {
+    padding: 8px 24px;
+    font-size: 0.85em;
+    font-family: inherit;
+    color: #666;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .tab:not(:last-child) {
+    border-right: 1px solid #333;
+  }
+
+  .tab.active {
+    color: #e94560;
+    background: rgba(233, 69, 96, 0.1);
+  }
+
+  .tab:hover:not(.active) {
+    color: #a8a8c8;
   }
 
   .card-container {
@@ -203,55 +239,199 @@
     color: #555;
     font-style: italic;
   }
+
+  /* Mastered list view */
+  .mastered-view {
+    display: none;
+    width: 100%;
+    max-width: 500px;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+    max-height: 70vh;
+    padding: 4px;
+  }
+
+  .mastered-view.visible {
+    display: flex;
+  }
+
+  .mastered-item {
+    background: linear-gradient(145deg, #16213e, #0f3460);
+    border: 1px solid #1a3a6a;
+    border-radius: 12px;
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .mastered-item:hover {
+    border-color: #e94560;
+  }
+
+  .mastered-item .m-word {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #e94560;
+    margin-bottom: 4px;
+  }
+
+  .mastered-item .m-pronunciation {
+    font-size: 0.85em;
+    color: #a8a8c8;
+    font-style: italic;
+    margin-bottom: 8px;
+  }
+
+  .mastered-item .m-definition {
+    font-size: 0.95em;
+    color: #ddd;
+    line-height: 1.5;
+  }
+
+  .mastered-item .m-detail {
+    display: none;
+    margin-top: 12px;
+  }
+
+  .mastered-item.expanded .m-detail {
+    display: block;
+  }
+
+  .mastered-item .m-origin {
+    font-size: 0.85em;
+    color: #a8a8c8;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .mastered-item .m-example {
+    font-size: 0.8em;
+    color: #7a7a9a;
+    line-height: 1.5;
+    border-left: 3px solid #e94560;
+    padding-left: 12px;
+  }
+
+  .mastered-empty {
+    color: #555;
+    font-style: italic;
+    text-align: center;
+    padding: 40px;
+  }
+
+  /* Hide flashcard stuff when on mastered tab */
+  .flashcard-view { display: contents; }
+  .flashcard-view.hidden { display: none; }
 </style>
 </head>
 <body>
 
-<div class="mode-toggle" onclick="toggleMode()">🔀 Shuffle</div>
+<div class="mode-toggle" id="mode-toggle" onclick="toggleMode()">🔀 Shuffle</div>
 
 <h1>🎓 Word of the Day</h1>
-<div class="counter" id="counter"></div>
 
-<div class="progress" id="progress"></div>
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('study')" id="tab-study">Study</button>
+  <button class="tab" onclick="switchTab('mastered')" id="tab-mastered">Mastered</button>
+</div>
 
-<div class="card-container" onclick="flipCard()">
-  <div class="card" id="card">
-    <div class="card-face card-front" id="front">
-      <div class="word" id="word">Loading...</div>
-      <div class="pronunciation" id="pronunciation"></div>
-      <div class="date-label" id="date-label"></div>
-      <div class="tap-hint">tap to reveal</div>
+<div class="flashcard-view" id="flashcard-view">
+  <div class="counter" id="counter"></div>
+  <div class="progress" id="progress"></div>
+
+  <div class="card-container" onclick="flipCard()">
+    <div class="card" id="card">
+      <div class="card-face card-front" id="front">
+        <div class="word" id="word">Loading...</div>
+        <div class="pronunciation" id="pronunciation"></div>
+        <div class="date-label" id="date-label"></div>
+        <div class="tap-hint">tap to reveal</div>
+      </div>
+      <div class="card-face card-back" id="back">
+        <div class="definition" id="definition"></div>
+        <div class="origin" id="origin"></div>
+        <div class="example" id="example"></div>
+      </div>
     </div>
-    <div class="card-face card-back" id="back">
-      <div class="definition" id="definition"></div>
-      <div class="origin" id="origin"></div>
-      <div class="example" id="example"></div>
-    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn" onclick="prevCard()">← Prev</button>
+    <button class="btn" onclick="nextCard()">Next →</button>
   </div>
 </div>
 
-<div class="controls">
-  <button class="btn" onclick="prevCard()">← Prev</button>
-  <button class="btn" onclick="nextCard()">Next →</button>
-</div>
+<div class="mastered-view" id="mastered-view"></div>
 
 <script>
 let words = [];
+let mastered = [];
 let currentIndex = 0;
 let shuffled = false;
 let order = [];
+let currentTab = 'study';
 
 async function loadWords() {
   try {
     const res = await fetch('words.json?' + Date.now());
     words = await res.json();
-    // Show newest first by default
     words.reverse();
     order = words.map((_, i) => i);
     showCard();
   } catch (e) {
     document.getElementById('word').textContent = 'Failed to load words';
   }
+}
+
+async function loadMastered() {
+  try {
+    const res = await fetch('mastered.json?' + Date.now());
+    mastered = await res.json();
+    mastered.reverse();
+  } catch (e) {
+    mastered = [];
+  }
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.getElementById('tab-study').classList.toggle('active', tab === 'study');
+  document.getElementById('tab-mastered').classList.toggle('active', tab === 'mastered');
+  
+  const fv = document.getElementById('flashcard-view');
+  const mv = document.getElementById('mastered-view');
+  const mt = document.getElementById('mode-toggle');
+  
+  if (tab === 'study') {
+    fv.classList.remove('hidden');
+    mv.classList.remove('visible');
+    mt.style.display = '';
+  } else {
+    fv.classList.add('hidden');
+    mv.classList.add('visible');
+    mt.style.display = 'none';
+    renderMastered();
+  }
+}
+
+function renderMastered() {
+  const el = document.getElementById('mastered-view');
+  if (!mastered.length) {
+    el.innerHTML = '<div class="mastered-empty">No mastered words yet.</div>';
+    return;
+  }
+  el.innerHTML = mastered.map((w, i) => `
+    <div class="mastered-item" onclick="this.classList.toggle('expanded')">
+      <div class="m-word">${w.word}</div>
+      <div class="m-pronunciation">(${w.pronunciation})</div>
+      <div class="m-definition">${w.definition}</div>
+      <div class="m-detail">
+        <div class="m-origin">${w.origin || ''}</div>
+        ${w.example ? `<div class="m-example">${w.example}</div>` : ''}
+      </div>
+    </div>
+  `).join('');
 }
 
 function formatDate(dateStr) {
@@ -336,6 +516,7 @@ document.addEventListener('keydown', e => {
 });
 
 loadWords();
+loadMastered();
 </script>
 </body>
 </html>
