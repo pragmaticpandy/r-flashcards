@@ -313,6 +313,32 @@
     padding-left: 12px;
   }
 
+  .mastered-item .m-image {
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  .mastered-item .m-image img {
+    max-width: 100%;
+    border-radius: 8px;
+    border: 1px solid #333;
+  }
+
+  .mastered-item .m-image-caption {
+    font-size: 0.75em;
+    color: #555;
+    margin-top: 6px;
+  }
+
+  .mastered-item .m-image-caption a {
+    color: #a8a8c8;
+    text-decoration: none;
+  }
+
+  .mastered-item .m-image-caption a:hover {
+    color: #e94560;
+  }
+
   .mastered-empty {
     color: #555;
     font-style: italic;
@@ -429,6 +455,7 @@ function renderMastered() {
       <div class="m-detail">
         <div class="m-origin">${w.origin || ''}</div>
         ${w.example ? `<div class="m-example">${w.example}</div>` : ''}
+        ${w.image ? `<div class="m-image"><img src="${w.image}" alt="${w.imageCaption || ''}"><div class="m-image-caption">${w.imageLink ? `<a href="${w.imageLink}" target="_blank">${w.imageCaption || 'Source'}</a>` : (w.imageCaption || '')}</div></div>` : ''}
       </div>
     </div>
   `).join('');
