@@ -568,7 +568,6 @@ function renderBooks() {
       ${b.dateFinished ? `<div class="b-date">Finished ${formatBookDate(b.dateFinished)}</div>` : '<div class="b-date">Currently reading</div>'}
       <div class="b-detail">
         ${b.notes ? `<div class="b-notes">${b.notes}</div>` : ''}
-        ${b.rating ? `<div class="b-rating">${'★'.repeat(b.rating)}${'☆'.repeat(5 - b.rating)}</div>` : ''}
       </div>
     </div>
   `).join('');
