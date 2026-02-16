@@ -33,7 +33,7 @@
     "origin": "From Greek khiasmos (crossing), named for the letter chi (X). The most famous example: \"Ask not what your country can do for you — ask what you can do for your country.\" Once you learn to spot it, it's everywhere — from Biblical verse to academic arguments.",
     "example": "\"The essay's chiastic structure — moving from individual trauma to collective memory, then from collective silence back to individual voice — gave the argument an elegant symmetry.\"",
     "date": "2026-02-12",
-    "day": 5
+    "day": 4
   },
   {
     "word": "Interpellation",
@@ -42,7 +42,7 @@
     "origin": "Coined by Marxist philosopher Louis Althusser (1970). The classic example: a police officer shouts \"Hey, you!\" — by turning around, you accept you are being addressed. You've been interpellated. Now used across cultural studies, gender theory, and critical race theory.",
     "example": "\"Butler extends Althusser's theory of interpellation to argue that gender itself is performatively constituted through repeated acts of recognition and misrecognition.\"",
     "date": "2026-02-13",
-    "day": 6
+    "day": 5
   },
   {
     "word": "Jouissance",
@@ -51,7 +51,7 @@
     "origin": "From French — literally \"enjoyment\" or \"orgasm,\" but in critical theory it means something far more specific. Lacan distinguished it from simple plaisir (regulated, comfortable pleasure): jouissance is the excessive, destabilizing kind that pushes past the boundaries of what the subject can contain. Barthes picked it up in The Pleasure of the Text to describe ecstatic, almost violent rupture — not cozy satisfaction, but the text that undoes you. Now used across psychoanalytic theory, literary criticism, feminist theory, and cultural studies.",
     "example": "\"Barthes distinguishes between texts of plaisir — which comfort and confirm — and texts of jouissance, which unsettle the reader's assumptions and produce a pleasure inseparable from disorientation.\"",
     "date": "2026-02-14",
-    "day": 7
+    "day": 6
   },
   {
     "word": "Aufhebung",
@@ -60,7 +60,7 @@
     "origin": "From Hegel's German — famously \"untranslatable\" because no English word captures all three meanings at once. Often rendered as \"sublation,\" which nobody uses in normal speech. This is the engine of Hegel's dialectic: thesis and antithesis don't just clash — one aufhebt the other, meaning it's overcome but also incorporated into something new. Think of it less as destruction and more as composting: the old form dies, but its substance feeds what grows next. Shows up constantly in philosophy, critical theory, political thought, and even psychoanalytic writing (Žižek loves it).",
     "example": "\"The movement from individual grief to collective mourning performs a kind of Aufhebung — personal loss is not erased but sublated into a shared political consciousness that transforms its meaning.\"",
     "date": "2026-02-15",
-    "day": 8
+    "day": 7
   },
   {
     "word": "Object Idea",
@@ -69,7 +69,7 @@
     "origin": "From John Locke's empiricist epistemology. For Locke, an \"idea\" is whatever the mind perceives in itself — any thought, image, or concept. When you see a chair, you don't directly experience the chair; you experience your idea of it. Hume sharpened this into \"impressions\" (vivid, immediate experience) and \"ideas\" (faded copies). Berkeley took it further: if all we ever access are ideas, maybe there are no objects independent of them at all.",
     "example": "\"The grief she carries isn't about the person anymore — it's about her object idea of them, a version she constructed and now can't let go of.\"",
     "date": "2026-02-15",
-    "day": 9
+    "day": 8
   },
   {
     "word": "Eschatology",
@@ -78,6 +78,6 @@
     "origin": "From Greek eskhatos (\"last\") + logos (\"study\"). Originally a theological concept — the study of death, judgment, heaven, hell, the Second Coming. But it's migrated far beyond religion: Marx's classless society is an eschatological vision, Fukuyama's \"end of history\" is secular eschatology, and climate discourse often carries eschatological undertones. Whenever a thinker posits a final state or ultimate reckoning, they're doing eschatology.",
     "example": "\"Benjamin's 'Theses on the Philosophy of History' recasts revolutionary politics in eschatological terms — redemption arrives not through progress but through a messianic rupture in the continuum of time.\"",
     "date": "2026-02-16",
-    "day": 10
+    "day": 9
   }
 ]
