@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Word of the Day — Flashcards</title>
+<title>Robin's Words & Books</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   
@@ -346,7 +346,99 @@
     padding: 40px;
   }
 
-  /* Hide flashcard stuff when on mastered tab */
+  /* Books view */
+  .books-view {
+    display: none;
+    width: 100%;
+    max-width: 500px;
+    flex-direction: column;
+    gap: 12px;
+    overflow-y: auto;
+    max-height: 70vh;
+    padding: 4px;
+  }
+
+  .books-view.visible {
+    display: flex;
+  }
+
+  .books-year {
+    font-size: 0.85em;
+    color: #a8a8c8;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+
+  .book-item {
+    background: linear-gradient(145deg, #16213e, #0f3460);
+    border: 1px solid #1a3a6a;
+    border-radius: 12px;
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .book-item:hover {
+    border-color: #e94560;
+  }
+
+  .book-item .b-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #e94560;
+    margin-bottom: 4px;
+    font-style: italic;
+  }
+
+  .book-item .b-author {
+    font-size: 0.95em;
+    color: #a8a8c8;
+    margin-bottom: 4px;
+  }
+
+  .book-item .b-date {
+    font-size: 0.8em;
+    color: #555;
+  }
+
+  .book-item .b-detail {
+    display: none;
+    margin-top: 12px;
+  }
+
+  .book-item.expanded .b-detail {
+    display: block;
+  }
+
+  .book-item .b-notes {
+    font-size: 0.9em;
+    color: #ddd;
+    line-height: 1.6;
+  }
+
+  .book-item .b-rating {
+    font-size: 0.85em;
+    color: #a8a8c8;
+    margin-top: 8px;
+  }
+
+  .books-count {
+    font-size: 0.85em;
+    color: #666;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .books-empty {
+    color: #555;
+    font-style: italic;
+    text-align: center;
+    padding: 40px;
+  }
+
+  /* Hide flashcard stuff when on other tabs */
   .flashcard-view { display: contents; }
   .flashcard-view.hidden { display: none; }
 </style>
@@ -355,11 +447,12 @@
 
 <div class="mode-toggle" id="mode-toggle" onclick="toggleMode()">🔀 Shuffle</div>
 
-<h1>🎓 Word of the Day</h1>
+<h1>🎓 Robin's Words & Books</h1>
 
 <div class="tabs">
   <button class="tab active" onclick="switchTab('study')" id="tab-study">Study</button>
   <button class="tab" onclick="switchTab('mastered')" id="tab-mastered">Mastered</button>
+  <button class="tab" onclick="switchTab('books')" id="tab-books">Books</button>
 </div>
 
 <div class="flashcard-view" id="flashcard-view">
@@ -389,10 +482,12 @@
 </div>
 
 <div class="mastered-view" id="mastered-view"></div>
+<div class="books-view" id="books-view"></div>
 
 <script>
 let words = [];
 let mastered = [];
+let books = [];
 let currentIndex = 0;
 let shuffled = false;
 let order = [];
@@ -420,25 +515,69 @@ async function loadMastered() {
   }
 }
 
+async function loadBooks() {
+  try {
+    const res = await fetch('books.json?' + Date.now());
+    books = await res.json();
+    books.sort((a, b) => (b.dateFinished || '').localeCompare(a.dateFinished || ''));
+  } catch (e) {
+    books = [];
+  }
+}
+
 function switchTab(tab) {
   currentTab = tab;
   document.getElementById('tab-study').classList.toggle('active', tab === 'study');
   document.getElementById('tab-mastered').classList.toggle('active', tab === 'mastered');
+  document.getElementById('tab-books').classList.toggle('active', tab === 'books');
   
   const fv = document.getElementById('flashcard-view');
   const mv = document.getElementById('mastered-view');
+  const bv = document.getElementById('books-view');
   const mt = document.getElementById('mode-toggle');
+  
+  fv.classList.add('hidden');
+  mv.classList.remove('visible');
+  bv.classList.remove('visible');
+  mt.style.display = 'none';
   
   if (tab === 'study') {
     fv.classList.remove('hidden');
-    mv.classList.remove('visible');
     mt.style.display = '';
-  } else {
-    fv.classList.add('hidden');
+  } else if (tab === 'mastered') {
     mv.classList.add('visible');
-    mt.style.display = 'none';
     renderMastered();
+  } else if (tab === 'books') {
+    bv.classList.add('visible');
+    renderBooks();
   }
+}
+
+function renderBooks() {
+  const el = document.getElementById('books-view');
+  if (!books.length) {
+    el.innerHTML = '<div class="books-empty">No books yet.</div>';
+    return;
+  }
+  const count = books.length;
+  el.innerHTML = `<div class="books-count">${count} book${count !== 1 ? 's' : ''} in 2026</div>` +
+    books.map((b, i) => `
+    <div class="book-item" onclick="this.classList.toggle('expanded')">
+      <div class="b-title">${b.title}</div>
+      <div class="b-author">${b.author}</div>
+      ${b.dateFinished ? `<div class="b-date">Finished ${formatBookDate(b.dateFinished)}</div>` : '<div class="b-date">Currently reading</div>'}
+      <div class="b-detail">
+        ${b.notes ? `<div class="b-notes">${b.notes}</div>` : ''}
+        ${b.rating ? `<div class="b-rating">${'★'.repeat(b.rating)}${'☆'.repeat(5 - b.rating)}</div>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function formatBookDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr + 'T12:00:00');
+  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 }
 
 function renderMastered() {
@@ -544,6 +683,7 @@ document.addEventListener('keydown', e => {
 
 loadWords();
 loadMastered();
+loadBooks();
 </script>
 </body>
 </html>
