@@ -627,6 +627,7 @@ function showCard() {
   document.getElementById('example').textContent = w.example;
   document.getElementById('counter').textContent = `${currentIndex + 1} / ${words.length}`;
   document.getElementById('card').classList.remove('flipped');
+  document.querySelector('.card-back').scrollTop = 0;
   buildProgress();
 }
 
