@@ -88,5 +88,14 @@
     "example": "\"Her reading of the Indian constitution performs a catachresis of Enlightenment liberalism — claiming rights discourse for subjects it was designed to exclude, and in doing so, exposing the gap between its universalist promises and its particular origins.\"",
     "date": "2026-02-17",
     "day": 10
+  },
+  {
+    "word": "Heteroglossia",
+    "pronunciation": "het-er-oh-GLOSS-ee-uh",
+    "definition": "The simultaneous presence of multiple voices, languages, or registers within a single text, utterance, or social space.",
+    "origin": "From Russian literary theorist Mikhail Bakhtin (1930s) — Greek heteros (\"other\") + glōssa (\"tongue\"). Bakhtin argued that language is never neutral or unified: every word carries traces of who else has used it, in what contexts, with what intentions. A novel doesn't speak in one voice — it's a collision of the author's language, characters' dialects, professional jargon, street speech, and borrowed styles, all jostling against each other. He contrasted this with monoglossia — the illusion of a single authoritative voice. For Bakhtin, heteroglossia isn't just a feature of good novels — it's the condition of language itself. Now everywhere: literary criticism, sociolinguistics, anthropology, postcolonial studies.",
+    "example": "\"The courtroom transcript reveals a striking heteroglossia — legal formalism, the defendant's vernacular, the interpreter's flattening translations, and the judge's performative authority all inhabit the same text, each pulling meaning in different directions.\"",
+    "date": "2026-02-18",
+    "day": 11
   }
 ]
