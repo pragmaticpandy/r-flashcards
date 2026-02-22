@@ -124,5 +124,14 @@
     "example": "\"The opening line — 'Many years later, as he faced the firing squad' — is a prolepsis that restructures the entire narrative: we read every subsequent scene of Buendía's youth knowing it moves toward a violence already announced.\"",
     "date": "2026-02-21",
     "day": 14
+  },
+  {
+    "word": "Epoché",
+    "pronunciation": "eh-poh-KAY",
+    "definition": "The deliberate suspension of all assumptions and judgments about the world in order to examine experience as it presents itself to consciousness.",
+    "origin": "From Greek ἐποχή (\"suspension\"). The Stoics used it first for withholding assent, but Husserl made it the foundation of phenomenology. You \"bracket\" everything you think you know — that the world exists independently of you, that science explains it, that your categories are natural — and describe only what remains in pure experience. It's not doubting the world exists (that's Descartes); it's setting the question aside entirely. Now everywhere in qualitative research — when a phenomenological researcher says they're \"bracketing their assumptions\" before analyzing interviews, they're attempting a (usually partial) epoché. Merleau-Ponty argued a complete epoché is actually impossible, which is itself an interesting philosophical claim.",
+    "example": "\"Before coding the transcripts, she performed an epoché — suspending her clinical training's diagnostic categories to let the participants' descriptions of pain speak on their own terms rather than be immediately absorbed into medical frameworks.\"",
+    "date": "2026-02-22",
+    "day": 15
   }
 ]
