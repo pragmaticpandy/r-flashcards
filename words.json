@@ -142,5 +142,14 @@
     "example": "\"The film's mise en abyme — a documentary crew filming a documentary about documentary filmmaking — collapses the distinction between subject and method, forcing the viewer to ask whether any act of representation can stand outside its own frame.\"",
     "date": "2026-02-23",
     "day": 16
+  },
+  {
+    "word": "Paratext",
+    "pronunciation": "PAIR-uh-tekst",
+    "definition": "Everything that surrounds, frames, and extends a text without being the text \"itself\" — titles, prefaces, footnotes, epigraphs, cover design, blurbs, author bios, dedications, even font choices.",
+    "origin": "From literary theorist Gérard Genette (1987, Seuils/Paratexts). Genette argued that no text arrives naked — it always comes dressed in layers of material that shape how we read it before we've read a single sentence. He split it into peritext (elements physically attached to the text: title page, chapter headings, footnotes) and epitext (elements circulating outside it: interviews, reviews, letters, now tweets and podcasts). The paratext is a \"threshold\" — neither fully inside nor outside the work, but the zone where reader and text negotiate the terms of entry. Scholars now apply it well beyond books — to film (trailers, credits, director's commentary), digital media (metadata, tags, comment sections), even archival documents.",
+    "example": "\"The dissertation's epigraph — an untranslated passage from Césaire — functioned as a paratext that signaled theoretical allegiance and implicitly challenged readers who couldn't access the French to confront their own linguistic limitations.\"",
+    "date": "2026-02-24",
+    "day": 17
   }
 ]
