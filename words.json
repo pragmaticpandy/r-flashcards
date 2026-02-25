@@ -151,5 +151,14 @@
     "example": "\"The dissertation's epigraph — an untranslated passage from Césaire — functioned as a paratext that signaled theoretical allegiance and implicitly challenged readers who couldn't access the French to confront their own linguistic limitations.\"",
     "date": "2026-02-24",
     "day": 17
+  },
+  {
+    "word": "Bricolage",
+    "pronunciation": "bree-koh-LAHZH",
+    "definition": "The construction of something from a diverse range of whatever happens to be available — making do, improvising, assembling from fragments rather than building from a master plan.",
+    "origin": "From French bricoler (\"to tinker\"). Claude Lévi-Strauss made it a theoretical concept in The Savage Mind (1962), contrasting the bricoleur with the engineer. The engineer works from blueprints and purpose-built materials; the bricoleur rummages through a finite stock of leftover tools and scraps, repurposing them for new tasks. Lévi-Strauss used it to describe mythic thought — how cultures build cosmologies not from abstract first principles but by rearranging existing cultural materials into new patterns. Derrida seized on it to argue that all intellectual work is bricolage. Now foundational across anthropology, cultural studies, education, art theory, and qualitative research methodology.",
+    "example": "\"Her dissertation methodology was an act of bricolage — stitching together phenomenological interviews, archival photography, and autoethnographic fragments, not because eclecticism was the goal, but because no single tradition could hold the shape of what she was studying.\"",
+    "date": "2026-02-25",
+    "day": 18
   }
 ]
