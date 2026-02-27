@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UW Philosophy — Spring 2026</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Helvetica, Arial, sans-serif;
+    background: #fff;
+    color: #111;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 1.5;
+  }
+  h1 {
+    font-size: 1.6em;
+    border-bottom: 2px solid #000;
+    padding-bottom: 8px;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    color: #555;
+    font-size: 0.9em;
+    margin-bottom: 24px;
+  }
+  .subtitle a { color: #1a5276; text-decoration: none; }
+  .subtitle a:hover { text-decoration: underline; }
+  .back-link {
+    display: inline-block;
+    margin-bottom: 16px;
+    color: #1a5276;
+    text-decoration: none;
+    font-size: 0.9em;
+  }
+  .back-link:hover { text-decoration: underline; }
+
+  .course {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    transition: box-shadow 0.2s;
+  }
+  .course:hover {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .course-code {
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+  .course-title {
+    font-size: 1.1em;
+  }
+  .course-meta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 0.85em;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  .course-meta span { white-space: nowrap; }
+  .tag {
+    display: inline-block;
+    background: #f0f0f0;
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-size: 0.8em;
+    color: #444;
+  }
+  .tag.closed { background: #f8d7da; color: #721c24; }
+  .tag.open { background: #d4edda; color: #155724; }
+  .description {
+    font-size: 0.9em;
+    color: #333;
+    margin-top: 8px;
+    line-height: 1.55;
+  }
+  .topic {
+    font-style: italic;
+    color: #555;
+    margin-top: 4px;
+    font-size: 0.9em;
+  }
+  .instructor {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    font-size: 0.88em;
+  }
+  .instructor-name { font-weight: bold; }
+  .rmp-rating {
+    display: inline-block;
+    background: #111;
+    color: #fff;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-weight: bold;
+    font-size: 0.85em;
+    margin-left: 6px;
+  }
+  .rmp-rating.high { background: #155724; }
+  .rmp-rating.mid { background: #856404; }
+  .rmp-rating.low { background: #721c24; }
+  .rmp-details { color: #666; font-size: 0.85em; }
+  .rmp-link { color: #1a5276; text-decoration: none; font-size: 0.85em; }
+  .rmp-link:hover { text-decoration: underline; }
+
+  .section-divider {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 28px 0 12px 0;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #ccc;
+    color: #333;
+  }
+
+  .faculty-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .faculty-card {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-size: 0.88em;
+  }
+  .faculty-card .name { font-weight: bold; }
+  .faculty-card .title { color: #666; font-size: 0.85em; }
+
+  .note {
+    background: #fff3cd;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-size: 0.88em;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 12px; }
+    .course { padding: 12px; }
+    .course-header { flex-direction: column; }
+    .faculty-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">← Back to Flashcards</a>
+
+<h1>UW Philosophy — Spring 2026</h1>
+<p class="subtitle">300 & 400-level courses · <a href="https://phil.washington.edu/courses/2026/spring/all" target="_blank">Department page</a> · <a href="https://www.washington.edu/students/timeschd/pub/SPR2026/phil.html" target="_blank">Time schedule</a></p>
+
+<div class="note">
+  ⚠️ Instructor assignments for most courses require <a href="https://sdb.admin.washington.edu/timeschd/uwnetid/tsstat.asp?QTRYR=SPR+2026&CURRIC=PHIL" target="_blank">UW NetID login</a> to view. Where known, instructors and RateMyProfessor ratings are included below. Enrollment status was accurate as of Feb 27, 2026.
+</div>
+
+<div class="section-divider">300-Level Courses</div>
+
+<div class="course">
+  <div class="course-header">
+    <div>
+      <span class="course-code">PHIL 301 A</span> · <span class="course-title">Intermediate Topics in Philosophy</span>
+    </div>
+    <span class="tag open">Open (0/35)</span>
+  </div>
+  <div class="course-meta">
+    <span>📅 MWF 8:30–9:50am</span>
+    <span>📚 5 credits</span>
+    <span>🏷️ SSc</span>
+  </div>
+  <div class="description">Philosophical topics at the intermediate level. Content varies each quarter, depending on instructor.</div>
+</div>
+
+<div class="course">
+  <div class="course-header">
+    <div>
+      <span class="course-code">PHIL 314 A</span> · <span class="course-title">Philosophy of Crime and Punishment</span>
+    </div>
+    <span class="tag closed">Closed (35/35)</span>
+  </div>
+  <div class="course-meta">
+    <span>📅 TTh 12:30–2:20pm</span>
+    <span>📚 5 credits</span>
+    <span>🏷️ SSc · Writing (W)</span>
+  </div>
+  <div class="description">Is it legitimate for the government to impede the freedom of movement of some of its citizens? This course focuses on philosophical questions related to punishment: why/when is the state permitted to punish? What makes criminal law different from other kinds of law? How does racial injustice and poverty impact the state's authority to punish? Covers deterrence, incapacitation, justice, abolitionism, and more.</div>
+  <div class="topic">Prereq: Previous philosophy writing credit course</div>
+</div>
+
+<div class="course">
+  <div class="course-header">
+    <div>
+      <span class="course-code">PHIL 320 A</span> · <span class="course-title">Ancient Philosophy</span>
+    </div>
+    <span class="tag closed">Closed (35/35)</span>
+  </div>
+  <div class="course-meta">
+    <span>📅 TTh 2:30–4:20pm</span>
+    <span>📚 5 credits</span>
+    <span>🏷️ SSc · Writing (W)</span>
+  </div>
+  <div class="description">Survey of ancient Greek philosophy, beginning with the pre-Socratics and proceeding through Plato to Aristotle.</div>
+</div>
+
+<div class="course">
+  <div class="course-header">
+    <div>
+      <span class="course-code">PHIL 322 A</span> · <span class="course-title">Modern Philosophy</span>
+    </div>
+    <span class="tag open">Open (58/75)</span>
+  </div>
+  <div class="course-meta">
+    <span>📅 MW 10:00–11:20am</span>
+    <span>📚 5 credits + quiz sections</span>
+    <span>🏷️ SSc · Writing (W)</span>
+  </div>
+  <div class="description">Examination of metaphysical and epistemological problems from the works of Descartes, Spinoza, Leibniz, Locke, Berkeley, Hume, and Kant.</div>
+</div>
+
+<div class="section-divider">400-Level Courses</div>
+
+<div class="course">
+  <div class="course-header">
+    <div>
+      <span class="course-code">PHIL 401 A</span> · <span class="course-title">Advanced Topics in Philosophy</span>
+    </div>
+    <span class="tag open">Open (11/30)</span>
+  </div>
+  <div class="course-meta">
+    <span>📅 MW 12:30–2:20pm</span>
+    <span>📚 5 credits</span>
+    <span>🏷️ SSc · Writing (W)</span>
+  </div>
+  <div class="description">A study of philosophical topics at the advanced level. Topics vary.</div>
+  <div class="topic">Recommended: one course in ethics or political philosophy</div>
+</div>
+
+<div class="course">
+  <div class="course-header">
+    <div>
+      <span class="course-code">PHIL 401 B</span> · <span class="course-title">Advanced Topics: Decision Theory</span>
+    </div>
+    <span class="tag open">Open (16/30)</span>
+  </div>
+  <div class="course-meta">
+    <span>📅 MW 10:30am–12:20pm</span>
+    <span>📚 5 credits</span>
+    <span>🏷️ SSc · Writing (W)</span>
+  </div>
+  <div class="description">A study of philosophical topics at the advanced level. Topic this quarter: Decision Theory.</div>
+</div>
+
+<div class="course">
+  <div class="course-header">
+    <div>
+      <span class="course-code">PHIL 419 A</span> · <span class="course-title">Latin American Philosophy</span>
+    </div>
+    <span class="tag open">Open (26/30)</span>
+  </div>
+  <div class="course-meta">
+    <span>📅 MW 12:30–2:20pm</span>
+    <span>📚 5 credits</span>
+    <span>🏷️ SSc</span>
+  </div>
+  <div class="description">A general survey of Latin American philosophy, including key texts and authors. Ranges from Mesoamerican philosophy to the present — debates over "indigenous" philosophy prior to the European conquest, whether there is an "authentic" Latin American philosophy, and how Latin American philosophy can guide our lives.</div>
+  <div class="topic">Texts: León-Portilla's <em>Aztec Thought and Culture</em>, Anzaldúa's <em>Borderlands/La Frontera</em>, Sánchez's <em>Blooming in the Ruins</em>. Previous writing-based philosophy course recommended.</div>
+  <div class="instructor">
+    <span class="instructor-name">José Jorge Mendoza</span>
+    <span class="rmp-rating high">5.0</span>
+    <span class="rmp-details">· 24 ratings · 96% would take again · Difficulty: 2.7/5</span>
+    <br><span class="rmp-details">Top tags: Hilarious, Amazing lectures, Caring, Respected</span>
+    · <a class="rmp-link" href="https://www.ratemyprofessors.com/professor/2672404" target="_blank">RateMyProfessor →</a>
+  </div>
+</div>
+
+<div class="course">
+  <div class="course-header">
+    <div>
+      <span class="course-code">PHIL 431 A</span> · <span class="course-title">Philosophy of Plato</span>
+    </div>
+    <span class="tag open">Open (11/30)</span>
+  </div>
+  <div class="course-meta">
+    <span>📅 TTh 1:30–3:20pm</span>
+    <span>📚 5 credits</span>
+    <span>🏷️ SSc</span>
+  </div>
+  <div class="description">Study of selected dialogues. Topic this quarter: Plato's Metaphysics.</div>
+  <div class="topic">PHIL 320 recommended. No overloads.</div>
+</div>
+
+<div class="course">
+  <div class="course-header">
+    <div>
+      <span class="course-code">PHIL 441 A</span> · <span class="course-title">Public Health Ethics</span>
+    </div>
+    <span class="tag open">Open (22/30)</span>
+  </div>
+  <div class="course-meta">
+    <span>📅 TTh 10:30am–12:20pm</span>
+    <span>📚 5 credits</span>
+    <span>🏷️ SSc · Writing (W)</span>
+  </div>
+  <div class="description">An in-depth study of philosophical issues arising in the practice and policy of public health. Material consists mainly of texts from philosophy and ethics, but also includes papers from epidemiology, newspaper articles, and current public health regulations and campaigns.</div>
+  <div class="topic">Previous ethics course recommended</div>
+</div>
+
+<div class="course">
+  <div class="course-header">
+    <div>
+      <span class="course-code">PHIL 449 A</span> · <span class="course-title">Philosophy of Film</span>
+    </div>
+    <span class="tag closed">Closed (39/30)</span>
+  </div>
+  <div class="course-meta">
+    <span>📅 MW 1:30–3:20pm</span>
+    <span>📚 5 credits</span>
+    <span>🏷️ A&H · SSc · Writing (W)</span>
+  </div>
+  <div class="description">Examines films and film theory from a philosophical perspective. Are films art? Is film a distinct artistic medium? Can morally offensive propaganda film be aesthetically beautiful? Do films have an author? Are documentaries more "realistic" than fictional film? Do films inherently objectify characters' bodies? Can films do philosophy?</div>
+</div>
+
+<div class="course">
+  <div class="course-header">
+    <div>
+      <span class="course-code">PHIL 453 A</span> · <span class="course-title">Philosophy of Language</span>
+    </div>
+    <span class="tag closed">Closed (31/30)</span>
+  </div>
+  <div class="course-meta">
+    <span>📅 TTh 12:30–2:20pm</span>
+    <span>📚 5 credits</span>
+    <span>🏷️ A&H · SSc · Writing (W)</span>
+  </div>
+  <div class="description">Current theories of meaning, reference, predication, and related concepts. Joint section with LING 476.</div>
+</div>
+
+<div class="course">
+  <div class="course-header">
+    <div>
+      <span class="course-code">PHIL 482 A</span> · <span class="course-title">Philosophy of Physical Science</span>
+    </div>
+    <span class="tag open">Open (9/30)</span>
+  </div>
+  <div class="course-meta">
+    <span>📅 MWF 10:00–11:20am</span>
+    <span>📚 5 credits</span>
+    <span>🏷️ SSc · NSc</span>
+  </div>
+  <div class="description">Study of philosophical issues raised by theories in physics or chemistry: whether space/time is a substance, causation and locality in quantum mechanics, temporal anistropy and time travel, the nature of a field of force, the reduction of chemistry to physics.</div>
+  <div class="topic">Prereq: one PHIL course</div>
+</div>
+
+<div class="section-divider">Also Offered (Ethics Program)</div>
+
+<div class="course">
+  <div class="course-header">
+    <div>
+      <span class="course-code">ETHICS 495 A</span> · <span class="course-title">Ethics in Practice</span>
+    </div>
+    <span class="tag">Limited enrollment</span>
+  </div>
+  <div class="course-meta">
+    <span>📅 M 1:30–3:20pm</span>
+    <span>📚 2 credits · CR/NC</span>
+  </div>
+  <div class="description">Culmination of the ethics minor. Synthesizes training in ethics with primary discipline. Includes a project of positive social engagement (service learning or research project with fieldwork).</div>
+  <div class="topic">Limited to undergraduates completing the minor in ethics. Contact philadv@uw.edu for entry code.</div>
+</div>
+
+<div class="section-divider">Philosophy Faculty — RateMyProfessor Ratings</div>
+<p style="font-size:0.88em; color:#555; margin-bottom:12px;">All current UW Philosophy department faculty with RateMyProfessor profiles. <a href="https://www.ratemyprofessors.com/search/professors/1530?q=%2A&did=42" target="_blank" style="color:#1a5276;">View all on RMP →</a></p>
+
+<div class="faculty-grid">
+  <div class="faculty-card">
+    <div class="name">José Jorge Mendoza <span class="rmp-rating high">5.0</span></div>
+    <div class="title">Associate Professor</div>
+    <div class="rmp-details">24 ratings · 96% again · Diff: 2.7</div>
+  </div>
+  <div class="faculty-card">
+    <div class="name">Colin Marshall <span class="rmp-rating high">4.6</span></div>
+    <div class="title">Professor</div>
+    <div class="rmp-details">22 ratings · 89% again · Diff: 2.8</div>
+  </div>
+  <div class="faculty-card">
+    <div class="name">Conor Mayo-Wilson <span class="rmp-rating high">4.4</span></div>
+    <div class="title">Associate Professor</div>
+    <div class="rmp-details">40 ratings · 80% again · Diff: 2.9</div>
+  </div>
+  <div class="faculty-card">
+    <div class="name">Michael Blake <span class="rmp-rating high">4.4</span></div>
+    <div class="title">Professor</div>
+    <div class="rmp-details">41 ratings · 77% again · Diff: 2.9</div>
+  </div>
+  <div class="faculty-card">
+    <div class="name">Charles Ives <span class="rmp-rating high">4.3</span></div>
+    <div class="title">Lecturer</div>
+    <div class="rmp-details">58 ratings · 83% again · Diff: 1.8</div>
+  </div>
+  <div class="faculty-card">
+    <div class="name">Carina Fourie <span class="rmp-rating mid">4.2</span></div>
+    <div class="title">Assoc Prof, Medical Ethics Chair</div>
+    <div class="rmp-details">18 ratings · 78% again · Diff: 3.1</div>
+  </div>
+  <div class="faculty-card">
+    <div class="name">Ian Schnee <span class="rmp-rating mid">4.2</span></div>
+    <div class="title">Teaching Professor</div>
+    <div class="rmp-details">74 ratings · 80% again · Diff: 3.4</div>
+  </div>
+  <div class="faculty-card">
+    <div class="name">Paul Franco <span class="rmp-rating mid">4.0</span></div>
+    <div class="title">Assoc Teaching Professor</div>
+    <div class="rmp-details">72 ratings · 92% again · Diff: 2.8</div>
+  </div>
+  <div class="faculty-card">
+    <div class="name">Benjamin Feintzeig <span class="rmp-rating mid">4.0</span></div>
+    <div class="title">Associate Professor</div>
+    <div class="rmp-details">13 ratings · 77% again · Diff: 3.9</div>
+  </div>
+  <div class="faculty-card">
+    <div class="name">Sosseh Assaturian <span class="rmp-rating mid">3.7</span></div>
+    <div class="title">Assistant Professor</div>
+    <div class="rmp-details">12 ratings · 50% again · Diff: 4.4</div>
+  </div>
+  <div class="faculty-card">
+    <div class="name">Rose Novick <span class="rmp-rating low">3.3</span></div>
+    <div class="title">Associate Professor</div>
+    <div class="rmp-details">7 ratings · 43% again · Diff: 3.0</div>
+  </div>
+  <div class="faculty-card">
+    <div class="name">Amelia Wirts <span class="rmp-rating low">3.3</span></div>
+    <div class="title">—</div>
+    <div class="rmp-details">19 ratings · 53% again · Diff: 3.4</div>
+  </div>
+  <div class="faculty-card">
+    <div class="name">Stephen Gardiner <span class="rmp-rating low">3.2</span></div>
+    <div class="title">Professor, Ethics Program Dir.</div>
+    <div class="rmp-details">21 ratings · 38% again · Diff: 3.2</div>
+  </div>
+</div>
+
+<p style="font-size:0.8em; color:#888; margin-top:24px; text-align:center;">Data from <a href="https://phil.washington.edu/courses/2026/spring/all" style="color:#888;">UW Philosophy Dept</a> and <a href="https://www.ratemyprofessors.com/search/professors/1530?q=%2A&did=42" style="color:#888;">RateMyProfessor</a>. Last updated Feb 27, 2026.</p>
+
+</body>
+</html>
