@@ -187,5 +187,14 @@
     "example": "\"Rather than tracing the diaspora back to a single point of origin, she mapped it rhizomatically — following lateral connections between communities in São Paulo, Lagos, and Birmingham that owed nothing to a shared root and everything to contingent encounters.\"",
     "date": "2026-02-28",
     "day": 21
+  },
+  {
+    "word": "Parataxis",
+    "pronunciation": "pair-uh-TAK-sis",
+    "definition": "The placement of clauses or sentences side by side with no conjunctions or subordination — letting the reader infer the connection between them.",
+    "origin": "From Greek parataxis (\"placing side by side\"). The opposite of hypotaxis, where everything is nested in subordinate clauses and explicitly linked. Parataxis just sets things next to each other and trusts you to do the work. The King James Bible is paratactic. Hemingway built a whole style on it. Caesar's \"I came, I saw, I conquered.\" Modernist poetry (Pound, H.D.) stripped away connective tissue to make images collide. In political speech, parataxis creates blunt, forceful rhythms. Scholars use it to analyze power in language and fragmented or traumatic narratives — when a text can't or won't explain causal connections, that refusal itself becomes meaningful.",
+    "example": "\"The testimony is radically paratactic — event follows event without explanation or transition, as if the causal logic that might connect them has itself been destroyed by the experience it tries to convey.\"",
+    "date": "2026-03-01",
+    "day": 22
   }
 ]
