@@ -20,175 +20,106 @@
   .details { display: flex; gap: 16px; color: #555; font-size: 14px; margin-bottom: 8px; flex-wrap: wrap; }
   .details span { display: flex; align-items: center; gap: 4px; }
   .notes { font-size: 13px; color: #555; margin-bottom: 10px; line-height: 1.4; }
-  .zillow-link { display: inline-block; color: #006AFF; text-decoration: none; font-size: 13px; 
-    margin-bottom: 16px; }
+  .zillow-link { display: inline-block; color: #006AFF; text-decoration: none; font-size: 13px; }
   .zillow-link:hover { text-decoration: underline; }
-  .comments-section { border-top: 1px solid #eee; padding-top: 12px; }
+  .comments-section { border-top: 1px solid #eee; padding-top: 12px; margin-top: 12px; }
   .comments-section h3 { font-size: 14px; color: #888; margin-bottom: 8px; font-weight: 500; }
   .comment { background: #f8f8f5; border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
   .comment-meta { font-size: 12px; color: #888; margin-bottom: 4px; }
   .comment-meta .name { font-weight: 600; color: #333; }
   .comment-text { font-size: 14px; line-height: 1.4; }
-  .comment-form { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
-  .comment-form input[type="text"] { flex: 1; min-width: 150px; padding: 10px 12px; border: 1px solid #ddd; 
-    border-radius: 8px; font-size: 16px; }
-  .comment-form select { padding: 10px 8px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; 
-    background: #fff; }
-  .comment-form button { padding: 10px 16px; background: #1a1a1a; color: #fff; border: none; 
-    border-radius: 8px; font-size: 14px; cursor: pointer; white-space: nowrap; }
-  .comment-form button:active { background: #333; }
-  .vote-row { display: flex; gap: 8px; margin-bottom: 12px; }
-  .vote-btn { padding: 8px 16px; border-radius: 20px; border: 1.5px solid #ddd; background: #fff; 
-    font-size: 18px; cursor: pointer; transition: all 0.15s; }
-  .vote-btn:active { transform: scale(0.95); }
-  .vote-btn.up { border-color: #2d6a4f; background: #e8f5e9; }
-  .vote-btn.down { border-color: #c62828; background: #fce4ec; }
   .no-comments { color: #aaa; font-size: 13px; font-style: italic; }
-  .sync-note { text-align: center; color: #aaa; font-size: 12px; margin-top: 12px; padding: 8px;
+  .votes { display: flex; gap: 12px; margin-top: 12px; margin-bottom: 4px; }
+  .vote-tag { font-size: 13px; padding: 4px 10px; border-radius: 12px; }
+  .vote-tag.up { background: #e8f5e9; color: #2d6a4f; }
+  .vote-tag.down { background: #fce4ec; color: #c62828; }
+  .vote-tag.none { background: #f0f0f0; color: #888; }
+  .footer { text-align: center; color: #aaa; font-size: 12px; margin-top: 20px; padding: 12px;
     border-top: 1px solid #eee; }
-  .count { font-size: 13px; color: #666; margin-left: 4px; }
 </style>
 </head>
 <body>
 
 <h1>🏠 Pobin Rental Hunt</h1>
-<p class="subtitle">Text Alan new Zillow links to add listings</p>
+<p class="subtitle">Text Alan to add listings or comments</p>
 
 <div id="listings"></div>
-<p class="sync-note">💬 Comments save on this device. Text Alan to add comments visible everywhere.</p>
+<p class="footer">Last updated: Mar 1, 2026</p>
 
 <script>
 const LISTINGS = [
   {
-    id: "48976071",
     address: "1419 E Denny Way, Seattle, WA 98122",
     price: "$3,985/mo",
     beds: "2", baths: "2.5", sqft: "1,900",
     notes: "",
-    url: "https://www.zillow.com/homedetails/1419-E-Denny-Way-Seattle-WA-98122/48976071_zpid/"
+    url: "https://www.zillow.com/homedetails/1419-E-Denny-Way-Seattle-WA-98122/48976071_zpid/",
+    paul: "", robin: "",
+    comments: []
   },
   {
-    id: "connection-on-broadway",
     address: "118 Broadway E, Seattle, WA 98102 (Capitol Hill)",
     price: "$1,599–$4,747/mo",
     beds: "Studio–3", baths: "1–2", sqft: "424+",
     notes: "Up to 8 weeks free on select homes. MFTE from $1,599. Pet-friendly. On Capitol Hill Station light rail.",
-    url: "https://www.zillow.com/apartments/seattle-wa/connection-on-broadway/CjgDLN/"
+    url: "https://www.zillow.com/apartments/seattle-wa/connection-on-broadway/CjgDLN/",
+    paul: "", robin: "",
+    comments: []
   },
   {
-    id: "publix",
     address: "504 5th Ave S, Seattle, WA (International District)",
     price: "$1,295–$1,495+/mo",
     beds: "1", baths: "1", sqft: "322–1,043",
     notes: "Pet-friendly. In-unit W/D. High ceilings. 4 weeks free promo.",
-    url: "https://www.zillow.com/apartments/seattle-wa/publix/Cm6K5y/"
+    url: "https://www.zillow.com/apartments/seattle-wa/publix/Cm6K5y/",
+    paul: "", robin: "",
+    comments: []
   },
   {
-    id: "the-olympian",
     address: "1605 E Madison St, Seattle, WA",
     price: "TBD",
     beds: "TBD", baths: "TBD", sqft: "1,300",
     notes: "Shared laundry. Gas heating. Parking lot.",
-    url: "https://www.zillow.com/apartments/seattle-wa/the-olympian/CjfPxJ/"
+    url: "https://www.zillow.com/apartments/seattle-wa/the-olympian/CjfPxJ/",
+    paul: "", robin: "",
+    comments: []
   }
 ];
 
-function getStore() {
-  try { return JSON.parse(localStorage.getItem('pobin-rental') || '{}'); } catch(e) { return {}; }
-}
-function setStore(d) { localStorage.setItem('pobin-rental', JSON.stringify(d)); }
-
 function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
 
-function timeAgo(ts) {
-  const s = Math.floor((Date.now() - ts) / 1000);
-  if (s < 60) return 'just now';
-  if (s < 3600) return Math.floor(s/60) + 'm ago';
-  if (s < 86400) return Math.floor(s/3600) + 'h ago';
-  return Math.floor(s/86400) + 'd ago';
+function renderVote(name, vote) {
+  if (vote === 'up') return `<span class="vote-tag up">👍 ${name}</span>`;
+  if (vote === 'down') return `<span class="vote-tag down">👎 ${name}</span>`;
+  return '';
 }
 
-function render() {
-  const store = getStore();
-  const el = document.getElementById('listings');
-  
-  el.innerHTML = LISTINGS.map(l => {
-    const ls = store[l.id] || { comments: [], votes: {} };
-    
-    const comments = (ls.comments || []).map(c => `
-      <div class="comment">
-        <div class="comment-meta"><span class="name">${esc(c.name)}</span> · ${timeAgo(c.ts)}</div>
-        <div class="comment-text">${esc(c.text)}</div>
-      </div>
-    `).join('');
+document.getElementById('listings').innerHTML = LISTINGS.map(l => {
+  const votes = [renderVote('Paul', l.paul), renderVote('Robin', l.robin)].filter(Boolean).join('');
+  const comments = l.comments.map(c => `
+    <div class="comment">
+      <div class="comment-meta"><span class="name">${esc(c.name)}</span></div>
+      <div class="comment-text">${esc(c.text)}</div>
+    </div>
+  `).join('');
 
-    const paulVote = ls.votes?.Paul || '';
-    const robinVote = ls.votes?.Robin || '';
-    
-    return `
-    <div class="listing">
-      <div class="listing-header">
-        <div class="address">${esc(l.address)}</div>
-        <div class="price">${esc(l.price)}</div>
-      </div>
-      <div class="details">
-        <span>🛏 ${esc(l.beds)} bed</span>
-        <span>🚿 ${esc(l.baths)} bath</span>
-        <span>📐 ${esc(l.sqft)} sqft</span>
-      </div>
-      ${l.notes ? `<p class="notes">${esc(l.notes)}</p>` : ''}
-      <a class="zillow-link" href="${esc(l.url)}" target="_blank">View on Zillow →</a>
-      <div class="vote-row">
-        <button class="vote-btn ${paulVote==='up'?'up':paulVote==='down'?'down':''}" onclick="vote('${l.id}','Paul')">
-          ${paulVote==='up'?'👍':paulVote==='down'?'👎':'🤔'} <span class="count">Paul</span>
-        </button>
-        <button class="vote-btn ${robinVote==='up'?'up':robinVote==='down'?'down':''}" onclick="vote('${l.id}','Robin')">
-          ${robinVote==='up'?'👍':robinVote==='down'?'👎':'🤔'} <span class="count">Robin</span>
-        </button>
-      </div>
-      <div class="comments-section">
-        <h3>Comments</h3>
-        ${comments || '<p class="no-comments">No comments yet</p>'}
-        <div class="comment-form">
-          <select id="name-${l.id}">
-            <option value="Paul">Paul</option>
-            <option value="Robin">Robin</option>
-          </select>
-          <input type="text" id="input-${l.id}" placeholder="Add a comment..." 
-            onkeydown="if(event.key==='Enter')addComment('${l.id}')">
-          <button onclick="addComment('${l.id}')">Send</button>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-function vote(id, who) {
-  const store = getStore();
-  if (!store[id]) store[id] = { comments: [], votes: {} };
-  const current = store[id].votes[who] || '';
-  // Cycle: none -> up -> down -> none
-  if (current === '') store[id].votes[who] = 'up';
-  else if (current === 'up') store[id].votes[who] = 'down';
-  else store[id].votes[who] = '';
-  setStore(store);
-  render();
-}
-
-function addComment(id) {
-  const input = document.getElementById('input-' + id);
-  const name = document.getElementById('name-' + id).value;
-  const text = input.value.trim();
-  if (!text) return;
-  const store = getStore();
-  if (!store[id]) store[id] = { comments: [], votes: {} };
-  store[id].comments.push({ name, text, ts: Date.now() });
-  setStore(store);
-  input.value = '';
-  render();
-}
-
-render();
+  return `
+  <div class="listing">
+    <div class="listing-header">
+      <div class="address">${esc(l.address)}</div>
+      <div class="price">${esc(l.price)}</div>
+    </div>
+    <div class="details">
+      <span>🛏 ${esc(l.beds)} bed</span>
+      <span>🚿 ${esc(l.baths)} bath</span>
+      <span>📐 ${esc(l.sqft)} sqft</span>
+    </div>
+    ${l.notes ? `<p class="notes">${esc(l.notes)}</p>` : ''}
+    <a class="zillow-link" href="${esc(l.url)}" target="_blank">View on Zillow →</a>
+    ${votes ? `<div class="votes">${votes}</div>` : ''}
+    ${comments ? `<div class="comments-section"><h3>Comments</h3>${comments}</div>` : ''}
+  </div>`;
+}).join('');
 </script>
 </body>
 </html>
