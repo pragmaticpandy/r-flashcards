@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pobin Rental Hunt 🏠</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { 
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: #f5f5f0; color: #1a1a1a; padding: 16px; max-width: 700px; margin: 0 auto;
+  }
+  h1 { font-size: 24px; margin-bottom: 4px; }
+  .subtitle { color: #666; font-size: 14px; margin-bottom: 20px; }
+  .listing { background: #fff; border-radius: 12px; padding: 20px; margin-bottom: 16px; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .listing-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+  .address { font-size: 18px; font-weight: 600; flex: 1; }
+  .price { font-size: 20px; font-weight: 700; color: #2d6a4f; white-space: nowrap; margin-left: 12px; }
+  .details { display: flex; gap: 16px; color: #555; font-size: 14px; margin-bottom: 12px; }
+  .details span { display: flex; align-items: center; gap: 4px; }
+  .zillow-link { display: inline-block; color: #006AFF; text-decoration: none; font-size: 13px; 
+    margin-bottom: 16px; }
+  .zillow-link:hover { text-decoration: underline; }
+  .comments-section { border-top: 1px solid #eee; padding-top: 12px; }
+  .comments-section h3 { font-size: 14px; color: #888; margin-bottom: 8px; font-weight: 500; }
+  .comment { background: #f8f8f5; border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; }
+  .comment-meta { font-size: 12px; color: #888; margin-bottom: 4px; }
+  .comment-meta .name { font-weight: 600; color: #333; }
+  .comment-text { font-size: 14px; line-height: 1.4; }
+  .comment-form { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+  .comment-form input[type="text"] { flex: 1; min-width: 0; padding: 8px 12px; border: 1px solid #ddd; 
+    border-radius: 8px; font-size: 14px; }
+  .comment-form select { padding: 8px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; 
+    background: #fff; }
+  .comment-form button { padding: 8px 16px; background: #1a1a1a; color: #fff; border: none; 
+    border-radius: 8px; font-size: 14px; cursor: pointer; white-space: nowrap; }
+  .comment-form button:active { background: #333; }
+  .vote-row { display: flex; gap: 8px; margin-bottom: 12px; }
+  .vote-btn { padding: 6px 14px; border-radius: 20px; border: 1.5px solid #ddd; background: #fff; 
+    font-size: 18px; cursor: pointer; transition: all 0.15s; }
+  .vote-btn:active { transform: scale(0.95); }
+  .vote-btn.active-up { border-color: #2d6a4f; background: #e8f5e9; }
+  .vote-btn.active-down { border-color: #c62828; background: #fce4ec; }
+  .vote-count { font-size: 12px; color: #888; display: inline; margin-left: 2px; }
+  .no-comments { color: #aaa; font-size: 13px; font-style: italic; }
+  .status { text-align: center; color: #888; font-size: 13px; padding: 8px; }
+  .tag { display: inline-block; background: #e8f5e9; color: #2d6a4f; font-size: 11px; font-weight: 600;
+    padding: 2px 8px; border-radius: 4px; margin-left: 8px; }
+</style>
+</head>
+<body>
+
+<h1>🏠 Pobin Rental Hunt</h1>
+<p class="subtitle">Send Alan new Zillow links to add listings</p>
+
+<div id="listings"></div>
+<div id="status" class="status">Loading...</div>
+
+<script>
+const API = 'https://jsonblob.com/api/jsonBlob/019caba4-fd09-795b-bc1c-faa3d4ee1013';
+let DATA = null;
+
+async function load() {
+  try {
+    const r = await fetch(API);
+    DATA = await r.json();
+    render();
+  } catch(e) {
+    document.getElementById('status').textContent = 'Failed to load — try refreshing';
+  }
+}
+
+async function save() {
+  await fetch(API, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify(DATA) });
+}
+
+function timeAgo(ts) {
+  const s = Math.floor((Date.now() - ts) / 1000);
+  if (s < 60) return 'just now';
+  if (s < 3600) return Math.floor(s/60) + 'm ago';
+  if (s < 86400) return Math.floor(s/3600) + 'h ago';
+  return Math.floor(s/86400) + 'd ago';
+}
+
+function render() {
+  const el = document.getElementById('listings');
+  const ids = Object.keys(DATA.listings);
+  if (!ids.length) { el.innerHTML = '<p class="no-comments">No listings yet — send Alan a Zillow link!</p>'; return; }
+  
+  el.innerHTML = ids.map(id => {
+    const l = DATA.listings[id];
+    const comments = (l.comments || []).map(c => `
+      <div class="comment">
+        <div class="comment-meta"><span class="name">${c.name}</span> · ${timeAgo(c.ts)}</div>
+        <div class="comment-text">${esc(c.text)}</div>
+      </div>
+    `).join('');
+    
+    const ups = (l.votes || []).filter(v => v.vote === 'up').length;
+    const downs = (l.votes || []).filter(v => v.vote === 'down').length;
+    
+    return `
+    <div class="listing" data-id="${id}">
+      <div class="listing-header">
+        <div class="address">${esc(l.address)}</div>
+        <div class="price">${esc(l.price)}</div>
+      </div>
+      <div class="details">
+        <span>🛏 ${l.beds} bed</span>
+        <span>🚿 ${l.baths} bath</span>
+        ${l.sqft ? `<span>📐 ${l.sqft.toLocaleString()} sqft</span>` : ''}
+      </div>
+      ${l.notes ? `<p style="font-size:13px;color:#555;margin-bottom:10px">${esc(l.notes)}</p>` : ''}
+      <a class="zillow-link" href="${esc(l.url)}" target="_blank">View on Zillow →</a>
+      <div class="vote-row">
+        <button class="vote-btn" onclick="vote('${id}','up')">👍 <span class="vote-count">${ups || ''}</span></button>
+        <button class="vote-btn" onclick="vote('${id}','down')">👎 <span class="vote-count">${downs || ''}</span></button>
+      </div>
+      <div class="comments-section">
+        <h3>Comments</h3>
+        ${comments || '<p class="no-comments">No comments yet</p>'}
+        <div class="comment-form">
+          <select id="name-${id}">
+            <option value="Paul">Paul</option>
+            <option value="Robin">Robin</option>
+          </select>
+          <input type="text" id="input-${id}" placeholder="Add a comment..." 
+            onkeydown="if(event.key==='Enter')addComment('${id}')">
+          <button onclick="addComment('${id}')">Send</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  
+  document.getElementById('status').textContent = `${ids.length} listing${ids.length > 1 ? 's' : ''} · pull to refresh`;
+}
+
+function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+async function addComment(id) {
+  const input = document.getElementById('input-' + id);
+  const name = document.getElementById('name-' + id).value;
+  const text = input.value.trim();
+  if (!text) return;
+  if (!DATA.listings[id].comments) DATA.listings[id].comments = [];
+  DATA.listings[id].comments.push({ name, text, ts: Date.now() });
+  input.value = '';
+  render();
+  await save();
+}
+
+async function vote(id, dir) {
+  if (!DATA.listings[id].votes) DATA.listings[id].votes = [];
+  // Simple — just add the vote (could dedupe by name later)
+  const who = prompt('Who are you?', 'Paul');
+  if (!who) return;
+  // Remove existing vote from this person
+  DATA.listings[id].votes = DATA.listings[id].votes.filter(v => v.name !== who);
+  DATA.listings[id].votes.push({ name: who, vote: dir, ts: Date.now() });
+  render();
+  await save();
+}
+
+load();
+</script>
+</body>
+</html>
