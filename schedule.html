@@ -8,30 +8,69 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: Helvetica, Arial, sans-serif; background: #f5f5f5; padding: 20px; color: #111; }
   h1 { font-size: 1.4em; margin-bottom: 4px; }
-  .subtitle { color: #666; font-size: 0.85em; margin-bottom: 20px; }
+  .subtitle { color: #666; font-size: 0.85em; margin-bottom: 16px; }
   .legend {
-    display: flex; gap: 16px; margin: 16px 0; flex-wrap: wrap; font-size: 0.85em;
+    display: flex; gap: 16px; margin: 12px 0 16px 0; flex-wrap: wrap; font-size: 0.82em;
   }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .legend-swatch { width: 14px; height: 14px; border-radius: 3px; border: 1px solid #999; }
 
-  .schedule {
+  .cal-wrap {
     display: grid;
-    grid-template-columns: 60px repeat(7, 1fr);
-    font-size: 0.78em;
+    grid-template-columns: 50px repeat(7, 1fr);
+    gap: 0;
     border: 1px solid #ccc;
     border-radius: 6px;
     overflow: hidden;
-    background: #ccc;
-    gap: 1px;
+    font-size: 0.78em;
   }
-  .hdr { background: #222; color: #fff; padding: 8px 4px; text-align: center; font-weight: bold; }
-  .time { background: #f0f0f0; padding: 2px 4px; text-align: right; font-size: 0.8em; color: #666; height: 48px; display: flex; align-items: flex-start; justify-content: flex-end; }
-  .slot { background: #fff; height: 48px; position: relative; }
+  .day-hdr {
+    background: #222; color: #fff; padding: 8px 4px;
+    text-align: center; font-weight: bold; font-size: 0.9em;
+    border-right: 1px solid #444;
+  }
+  .day-hdr:last-child { border-right: none; }
+  .corner { background: #222; }
+
+  .time-col {
+    background: #f7f7f7;
+    border-right: 1px solid #ddd;
+  }
+  .time-label {
+    height: 60px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 2px 6px 0 0;
+    font-size: 0.8em;
+    color: #888;
+    border-bottom: 1px solid #eee;
+  }
+
+  .day-col {
+    position: relative;
+    border-right: 1px solid #eee;
+    min-height: calc(60px * 14); /* 8AM to 10PM = 14 hours */
+  }
+  .day-col:last-child { border-right: none; }
+
+  .hour-line {
+    position: absolute;
+    left: 0; right: 0;
+    border-bottom: 1px solid #eee;
+    height: 0;
+  }
+
   .ev {
-    position: absolute; left: 2px; right: 2px; border-radius: 3px;
-    padding: 2px 4px; font-size: 0.85em; line-height: 1.2;
-    overflow: hidden; z-index: 2; font-weight: 500;
+    position: absolute;
+    left: 3px; right: 3px;
+    border-radius: 4px;
+    padding: 3px 5px;
+    font-size: 0.82em;
+    line-height: 1.25;
+    overflow: hidden;
+    z-index: 2;
+    font-weight: 500;
   }
   .existing { background: #e8e8e8; color: #555; border: 1px solid #bbb; }
   .phil { background: #c8e6c9; color: #1b5e20; border: 1px solid #81c784; }
@@ -43,7 +82,6 @@
   .notes h2 { font-size: 1.1em; margin: 16px 0 8px 0; }
   .notes ul { padding-left: 20px; }
   .notes li { margin-bottom: 4px; }
-
   table.summary { border-collapse: collapse; margin-top: 12px; font-size: 0.88em; width: 100%; max-width: 750px; }
   table.summary th, table.summary td { padding: 6px 10px; border: 1px solid #ddd; text-align: left; }
   table.summary th { background: #f0f0f0; }
@@ -54,247 +92,149 @@
 <body>
 
 <h1>Robin's Spring 2026 Schedule Planner</h1>
-<p class="subtitle">v3 — No work, no IOP · UW Spring Quarter Mar 30 – Jun 12 · Seattle Central starts ~Apr 13</p>
+<p class="subtitle">v4 — No work, no IOP · UW Spring Mar 30–Jun 12 · Seattle Central ~Apr 13</p>
 
 <div class="legend">
-  <div class="legend-item"><div class="legend-swatch" style="background:#e8e8e8;"></div> Current commitments</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#e8e8e8;"></div> Current</div>
   <div class="legend-item"><div class="legend-swatch" style="background:#c8e6c9;"></div> UW Philosophy</div>
-  <div class="legend-item"><div class="legend-swatch" style="background:#bbdefb;"></div> UW Psychiatry & Law</div>
-  <div class="legend-item"><div class="legend-swatch" style="background:#ffe0b2;"></div> Seattle Central art</div>
-  <div class="legend-item"><div class="legend-swatch" style="background:#e1bee7;"></div> Pick-one options</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#bbdefb;"></div> UW Psych & Law</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#ffe0b2;"></div> Seattle Central</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#e1bee7;"></div> Pick one</div>
 </div>
 
-<div class="schedule">
-  <div class="hdr"></div>
-  <div class="hdr">MON</div>
-  <div class="hdr">TUE</div>
-  <div class="hdr">WED</div>
-  <div class="hdr">THU</div>
-  <div class="hdr">FRI</div>
-  <div class="hdr">SAT</div>
-  <div class="hdr">SUN</div>
+<script>
+// px per hour
+const PX = 60;
+// base hour (8 AM = 0)
+const BASE = 8;
 
-  <!-- 8 AM -->
-  <div class="time">8 AM</div>
-  <div class="slot">
-    <div class="phil" style="top:24px;height:64px;">PHIL 301<br>Intermed Topics<br>8:30–9:50</div>
-  </div>
-  <div class="slot"></div>
-  <div class="slot">
-    <div class="phil" style="top:24px;height:64px;">PHIL 301<br>Intermed Topics<br>8:30–9:50</div>
-  </div>
-  <div class="slot"></div>
-  <div class="slot">
-    <div class="phil" style="top:24px;height:64px;">PHIL 301<br>Intermed Topics<br>8:30–9:50</div>
-  </div>
-  <div class="slot"></div>
-  <div class="slot"></div>
+function pos(h, m) {
+  return ((h - BASE) + m/60) * PX;
+}
+function ht(h1, m1, h2, m2) {
+  return ((h2 - h1) + (m2 - m1)/60) * PX;
+}
 
-  <!-- 9 AM -->
-  <div class="time">9 AM</div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
+function ev(parentId, cls, startH, startM, endH, endM, label) {
+  const col = document.getElementById(parentId);
+  const d = document.createElement('div');
+  d.className = 'ev ' + cls;
+  d.style.top = pos(startH, startM) + 'px';
+  d.style.height = ht(startH, startM, endH, endM) + 'px';
+  d.innerHTML = label;
+  col.appendChild(d);
+}
 
-  <!-- 10 AM -->
-  <div class="time">10 AM</div>
-  <div class="slot">
-    <div class="existing" style="top:0;height:48px;">PT 10–11</div>
-  </div>
-  <div class="slot">
-    <div class="option" style="top:24px;height:86px;">PHIL 441<br>Public Health<br>Ethics<br>10:30–12:20<br>⚠️ Tilda @11</div>
-  </div>
-  <div class="slot"></div>
-  <div class="slot">
-    <div class="phil" style="top:24px;height:86px;">PHIL 441<br>Public Health<br>Ethics<br>10:30–12:20</div>
-  </div>
-  <div class="slot"></div>
-  <div class="slot">
-    <div class="existing" style="top:0;height:96px;">Essay Class<br>10–12</div>
-  </div>
-  <div class="slot"></div>
+window.addEventListener('DOMContentLoaded', function() {
+  // Monday
+  ev('mon', 'phil',     8,30,  9,50, 'PHIL 301<br>Intermed Topics<br>8:30–9:50');
+  ev('mon', 'existing',10, 0, 11, 0, 'PT 10–11');
+  ev('mon', 'art-ce', 13, 0, 15, 0, 'Drawing from<br>Observation<br>1–3 PM · $199');
+  ev('mon', 'option', 18,30, 20,30, 'Watercolor OR<br>Monoprint<br>6:30–8:30');
+  ev('mon', 'psych',  19, 0, 21,20, 'PBSCI 525P<br>Psych & Law<br>7–9:20 PM');
 
-  <!-- 11 AM -->
-  <div class="time">11 AM</div>
-  <div class="slot"></div>
-  <div class="slot">
-    <div class="existing" style="top:0;height:42px;">Tilda 11–11:53</div>
-  </div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot">
-    <div class="existing" style="top:0;height:44px;">Tilda 11–11:55</div>
-  </div>
-  <div class="slot"></div>
-  <div class="slot"></div>
+  // Tuesday
+  ev('tue', 'option', 10,30, 12,20, 'PHIL 441<br>Pub Health Ethics<br>10:30–12:20<br>⚠️ Tilda @11');
+  ev('tue', 'existing',11, 0, 11,53, 'Tilda 11–11:53');
+  ev('tue', 'phil',   12,30, 14,20, 'PHIL 453<br>Phil of Language<br>12:30–2:20');
+  ev('tue', 'option', 18,45, 20,45, 'Drawing Beg<br>6:45–8:45 · $249<br>OR Ink · $189');
 
-  <!-- 12 PM -->
-  <div class="time">12 PM</div>
-  <div class="slot"></div>
-  <div class="slot">
-    <div class="phil" style="top:24px;height:86px;">PHIL 453<br>Phil of Language<br>12:30–2:20</div>
+  // Wednesday
+  ev('wed', 'phil',    8,30,  9,50, 'PHIL 301<br>Intermed Topics<br>8:30–9:50');
+  ev('wed', 'art-ce',18,30, 20,30, 'Drawing &<br>Sketching<br>6:30–8:30 · $265');
+
+  // Thursday
+  ev('thu', 'phil',   10,30, 12,20, 'PHIL 441<br>Pub Health Ethics<br>10:30–12:20');
+  ev('thu', 'phil',   12,30, 14,20, 'PHIL 453<br>Phil of Language<br>12:30–2:20');
+  ev('thu', 'art-ce', 18,30, 20,30, 'Life Figure<br>Drawing<br>6:30–8:30 · $299');
+
+  // Friday
+  ev('fri', 'phil',    8,30,  9,50, 'PHIL 301<br>Intermed Topics<br>8:30–9:50');
+  ev('fri', 'existing',11, 0, 11,55, 'Tilda 11–11:55');
+
+  // Saturday
+  ev('sat', 'existing',10, 0, 12, 0, 'Essay Class<br>10–12');
+
+  // Hour lines
+  ['mon','tue','wed','thu','fri','sat','sun'].forEach(function(id) {
+    var col = document.getElementById(id);
+    for (var h = 8; h <= 21; h++) {
+      var line = document.createElement('div');
+      line.className = 'hour-line';
+      line.style.top = ((h - BASE) * PX) + 'px';
+      col.appendChild(line);
+    }
+  });
+});
+</script>
+
+<div class="cal-wrap">
+  <div class="corner"></div>
+  <div class="day-hdr">MON</div>
+  <div class="day-hdr">TUE</div>
+  <div class="day-hdr">WED</div>
+  <div class="day-hdr">THU</div>
+  <div class="day-hdr">FRI</div>
+  <div class="day-hdr">SAT</div>
+  <div class="day-hdr">SUN</div>
+
+  <div class="time-col">
+    <div class="time-label">8 AM</div>
+    <div class="time-label">9 AM</div>
+    <div class="time-label">10 AM</div>
+    <div class="time-label">11 AM</div>
+    <div class="time-label">12 PM</div>
+    <div class="time-label">1 PM</div>
+    <div class="time-label">2 PM</div>
+    <div class="time-label">3 PM</div>
+    <div class="time-label">4 PM</div>
+    <div class="time-label">5 PM</div>
+    <div class="time-label">6 PM</div>
+    <div class="time-label">7 PM</div>
+    <div class="time-label">8 PM</div>
+    <div class="time-label">9 PM</div>
   </div>
-  <div class="slot"></div>
-  <div class="slot">
-    <div class="phil" style="top:24px;height:86px;">PHIL 453<br>Phil of Language<br>12:30–2:20</div>
-  </div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
 
-  <!-- 1 PM -->
-  <div class="time">1 PM</div>
-  <div class="slot">
-    <div class="art-ce" style="top:0;height:96px;">Drawing from<br>Observation<br>1–3 PM · $199<br>Seattle Central</div>
-  </div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-
-  <!-- 2 PM -->
-  <div class="time">2 PM</div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-
-  <!-- 3 PM -->
-  <div class="time">3 PM</div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-
-  <!-- 4 PM -->
-  <div class="time">4 PM</div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-
-  <!-- 5 PM -->
-  <div class="time">5 PM</div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-
-  <!-- 6 PM -->
-  <div class="time">6 PM</div>
-  <div class="slot">
-    <div class="option" style="top:24px;height:96px;">Watercolor<br>OR Monoprint<br>6:30–8:30<br>Seattle Central</div>
-  </div>
-  <div class="slot">
-    <div class="option" style="top:24px;height:96px;">Drawing Beg<br>6:45–8:45 · $249<br>OR Ink 6:30–8:30<br>Seattle Central</div>
-  </div>
-  <div class="slot">
-    <div class="art-ce" style="top:24px;height:96px;">Drawing &<br>Sketching<br>6:30–8:30 · $265<br>Seattle Central</div>
-  </div>
-  <div class="slot">
-    <div class="art-ce" style="top:24px;height:96px;">Life Figure<br>Drawing<br>6:30–8:30 · $299<br>Seattle Central</div>
-  </div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-
-  <!-- 7 PM -->
-  <div class="time">7 PM</div>
-  <div class="slot">
-    <div class="psych" style="top:0;height:112px;">PBSCI 525P<br>Psychiatry<br>& the Law<br>7–9:20 PM</div>
-  </div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-
-  <!-- 8 PM -->
-  <div class="time">8 PM</div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-
-  <!-- 9 PM -->
-  <div class="time">9 PM</div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
-  <div class="slot"></div>
+  <div class="day-col" id="mon"></div>
+  <div class="day-col" id="tue"></div>
+  <div class="day-col" id="wed"></div>
+  <div class="day-col" id="thu"></div>
+  <div class="day-col" id="fri"></div>
+  <div class="day-col" id="sat"></div>
+  <div class="day-col" id="sun"></div>
 </div>
 
 <div class="notes">
-  <h2>Everything Fits Now</h2>
+  <h2>All Options</h2>
   <table class="summary">
-    <tr><th>Class</th><th>When</th><th>Status</th></tr>
-    <tr><td><strong>PHIL 301</strong> — Intermediate Topics</td><td>MWF 8:30–9:50 AM</td><td class="fit">✅ Fits</td></tr>
-    <tr><td><strong>PHIL 453</strong> — Philosophy of Language</td><td>TTh 12:30–2:20 PM</td><td class="fit">✅ Fits</td></tr>
-    <tr><td><strong>PHIL 441</strong> — Public Health Ethics</td><td>TTh 10:30 AM–12:20 PM</td><td class="maybe">⚠️ Tue overlaps Tilda · Thu fine</td></tr>
-    <tr><td><strong>PBSCI 525P</strong> — Psychiatry & the Law</td><td>Mon 7:00–9:20 PM</td><td class="fit">✅ Fits</td></tr>
-    <tr><td colspan="3" style="background:#f5f5f5;font-weight:bold;padding-top:12px;">Seattle Central Art (starts ~Apr 13)</td></tr>
-    <tr><td><strong>Drawing & Sketching</strong></td><td>Wed 6:30–8:30 PM · $265</td><td class="fit">✅ Fits</td></tr>
-    <tr><td><strong>Life Figure Drawing</strong></td><td>Thu 6:30–8:30 PM · $299</td><td class="fit">✅ Fits!</td></tr>
-    <tr><td><strong>Drawing from Observation</strong></td><td>Mon 1–3 PM · $199</td><td class="fit">✅ Fits</td></tr>
-    <tr><td><strong>Drawing - Beginning</strong></td><td>Tue 6:45–8:45 PM · $249</td><td class="fit">✅ Fits</td></tr>
-    <tr><td><strong>Drawing with Ink</strong></td><td>Tue 6:30–8:30 PM · $189</td><td class="fit">✅ Fits (starts May 12)</td></tr>
-    <tr><td><strong>Watercolor Landscapes</strong></td><td>Mon 6:30–8:30 PM · $265</td><td class="maybe">⚠️ Overlaps Psych & Law</td></tr>
-    <tr><td><strong>Monoprinting</strong></td><td>Mon 6:30–8:30 PM · $265</td><td class="maybe">⚠️ Overlaps Psych & Law</td></tr>
-    <tr><td><strong>Watercolor Painting (Beg)</strong></td><td>Wed 6:30–8:30 PM · $265</td><td class="maybe">⚠️ Same slot as Drawing & Sketching</td></tr>
-    <tr><td><strong>Gouache Painting</strong></td><td>Mon 10 AM–12 PM · $249</td><td class="maybe">⚠️ Overlaps PT (10–11)</td></tr>
+    <tr><th>Class</th><th>When</th><th>Fits?</th></tr>
+    <tr><td><strong>PHIL 301</strong> — Intermediate Topics</td><td>MWF 8:30–9:50 AM</td><td class="fit">✅</td></tr>
+    <tr><td><strong>PHIL 453</strong> — Philosophy of Language</td><td>TTh 12:30–2:20 PM</td><td class="fit">✅</td></tr>
+    <tr><td><strong>PHIL 441</strong> — Public Health Ethics</td><td>TTh 10:30–12:20 PM</td><td class="maybe">⚠️ Tue overlaps Tilda</td></tr>
+    <tr><td><strong>PBSCI 525P</strong> — Psychiatry & the Law</td><td>Mon 7–9:20 PM</td><td class="fit">✅</td></tr>
+    <tr><td colspan="3" style="background:#f5f5f5;font-weight:bold;">Seattle Central Art</td></tr>
+    <tr><td><strong>Drawing & Sketching</strong></td><td>Wed 6:30–8:30 PM · $265</td><td class="fit">✅</td></tr>
+    <tr><td><strong>Life Figure Drawing</strong></td><td>Thu 6:30–8:30 PM · $299</td><td class="fit">✅</td></tr>
+    <tr><td><strong>Drawing from Observation</strong></td><td>Mon 1–3 PM · $199</td><td class="fit">✅</td></tr>
+    <tr><td><strong>Drawing - Beginning</strong></td><td>Tue 6:45–8:45 PM · $249</td><td class="fit">✅</td></tr>
+    <tr><td><strong>Drawing with Ink</strong></td><td>Tue 6:30–8:30 PM · $189</td><td class="fit">✅ (starts May 12)</td></tr>
+    <tr><td><strong>Watercolor Landscapes</strong></td><td>Mon 6:30–8:30 PM · $265</td><td class="maybe">⚠️ vs Psych & Law</td></tr>
+    <tr><td><strong>Monoprinting</strong></td><td>Mon 6:30–8:30 PM · $265</td><td class="maybe">⚠️ vs Psych & Law</td></tr>
+    <tr><td><strong>Gouache Painting</strong></td><td>Mon 10–12 PM · $249</td><td class="maybe">⚠️ vs PT</td></tr>
   </table>
 
-  <h2>Pick-One Choices</h2>
+  <h2>Pick-One Slots</h2>
   <ul>
-    <li><strong>Monday evening:</strong> Psychiatry & the Law (UW) OR Watercolor/Monoprinting (Seattle Central) OR SJF jam</li>
-    <li><strong>Tuesday evening:</strong> Drawing - Beginning ($249) OR Drawing with Ink ($189, starts later May 12)</li>
-    <li><strong>Wednesday evening:</strong> Drawing & Sketching ($265) OR Watercolor Painting Beginning ($265)</li>
+    <li><strong>Mon evening:</strong> Psychiatry & Law OR Watercolor/Monoprint OR jam</li>
+    <li><strong>Tue evening:</strong> Drawing Beginning OR Drawing with Ink (starts later)</li>
+    <li><strong>Wed evening:</strong> Drawing & Sketching OR Watercolor Beg</li>
   </ul>
-
-  <h2>Suggested Max Load</h2>
-  <ul>
-    <li><strong>MWF morning:</strong> PHIL 301 Intermediate Topics (8:30–9:50)</li>
-    <li><strong>Mon afternoon:</strong> Drawing from Observation (1–3 PM)</li>
-    <li><strong>Mon evening:</strong> Psychiatry & the Law (7–9:20 PM)</li>
-    <li><strong>TTh mid-morning:</strong> PHIL 441 Public Health Ethics (10:30–12:20) — miss Tue or move Tilda</li>
-    <li><strong>TTh midday:</strong> PHIL 453 Philosophy of Language (12:30–2:20)</li>
-    <li><strong>Tue evening:</strong> Drawing - Beginning (6:45–8:45)</li>
-    <li><strong>Wed evening:</strong> Drawing & Sketching (6:30–8:30)</li>
-    <li><strong>Thu evening:</strong> Life Figure Drawing (6:30–8:30)</li>
-    <li><strong>Sat morning:</strong> Essay Class (10–12)</li>
-  </ul>
-  <p style="margin-top:8px;color:#666;">That's 4 UW courses + 4 art classes + essay class. Only real conflict is PHIL 441 vs Tilda on Tuesdays.</p>
 
   <h2>Remaining Commitments</h2>
   <ul>
     <li>PT — Mon 10–11 AM</li>
     <li>Tilda — Tue 11 AM, Fri 11 AM</li>
-    <li>Essay Class — Sat 10 AM–12 PM (until Jun 15)</li>
+    <li>Essay Class — Sat 10–12 (until Jun 15)</li>
   </ul>
 </div>
 
